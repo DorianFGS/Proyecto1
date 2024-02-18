@@ -9,7 +9,7 @@ def Hola(): #creamos la función que va a responder al llamado a  la ruta /
 def plantilla():
     data={
         'titulo':'Practica #1 con Flask',
-        'mensaje':'Hola rtrtrtr gtgtt'
+        'mensaje':'Bienvenido al sitio Web '
     } #Declaración de diccionario
     return render_template('pagina1.html',data=data) #render_template es para renderizar la plantilla
 app.run(debug=True) #es para correr la aplicación o sea nuestro sitio web en el servidor virtual
