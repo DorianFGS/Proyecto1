@@ -8,7 +8,7 @@ def Hola(): #creamos la función que va a responder al llamado a  la ruta /
 @app.route('/plantilla')
 def plantilla():
     data={
-        'titulo':'Página plantilla',
+        'titulo':'Página Hola',
         'mensaje':'Hola rtrtrtr gtgtt'
     } #Declaración de diccionario
     return render_template('pagina1.html',data=data) #render_template es para renderizar la plantilla
