@@ -8,7 +8,7 @@ def Hola(): #creamos la función que va a responder al llamado a  la ruta /
 @app.route('/plantilla')
 def plantilla():
     data={
-        'titulo':'Practica #1 con Flask',
+        'titulo':'Practica #2 con Bootstrap',
         'mensaje':'Bienvenido al sitio Web ',
         'nombre':'Dorian Fernando Galindo Salinas'
     } #Declaración de diccionario
