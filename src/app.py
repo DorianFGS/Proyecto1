@@ -12,7 +12,23 @@ def plantilla():
         'mensaje':'Bienvenido al sitio Web ',
         'nombre':'Dorian Fernando Galindo Salinas'
     } #Declaración de diccionario
-    return render_template('pagina1.html',data=data) #render_template es para renderizar la plantilla
+    return render_template('layout.html',data=data) #render_template es para renderizar la plantilla
+@app.route('/datos/<nombre>')
+def datos(nombre):
+    data={
+        'titulo':'Datos del Estudiante',
+        'matricula':'04220026',
+        'nombre':nombre,
+        'correo':'l0400220026@progreso.tecnm.mx'
+    }
+    return render_template('datos.html',data=data)
+@app.route('/index')
+def index():
+    data={
+        'titulo':'Página Principal',
+        'mensaje':'Bienvenido, esta es la página principal.'
+    }
+    return render_template('index.html',data=data)
 app.run(debug=True) #es para correr la aplicación o sea nuestro sitio web en el servidor virtual
     
     
