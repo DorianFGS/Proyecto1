@@ -13,6 +13,7 @@ def plantilla():
         'nombre':'Dorian Fernando Galindo Salinas'
     } #Declaración de diccionario
     return render_template('layout.html',data=data) #render_template es para renderizar la plantilla
+
 @app.route('/datos/<nombre>')
 def datos(nombre):
     data={
@@ -22,6 +23,7 @@ def datos(nombre):
         'correo':'l0400220026@progreso.tecnm.mx'
     }
     return render_template('datos.html',data=data)
+
 @app.route('/index')
 def index():
     data={
@@ -29,7 +31,12 @@ def index():
         'mensaje':'Bienvenido, esta es la página principal.'
     }
     return render_template('index.html',data=data)
+
+def error404(error):
+    return render_template('404.html'), 404
+app.register_error_handler(404, error404)
 app.run(debug=True) #es para correr la aplicación o sea nuestro sitio web en el servidor virtual
+
     
     
     #recuerda que para verlo solo debemos entrar a la dirección 127.0.0.1:5000 en cualquier navegador
