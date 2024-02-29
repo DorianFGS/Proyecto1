@@ -1,4 +1,4 @@
-from flask import Flask, render_template #Es para importar flask
+from flask import Flask, render_template, request, redirect, url_for #Es para importar flask
 
 app = Flask(__name__) #creamos una instancia de flask en una variable llamada app(se puede llamar como sea)
 
@@ -31,6 +31,22 @@ def index():
         'mensaje':'Bienvenido, esta es la página principal.'
     }
     return render_template('index.html',data=data)
+
+@app.route('/login', methods={"POST", "GET"})
+def sign():
+    if request.method == 'POST':
+        password = request.form["password"]
+        email = request.form["correo"]
+        return redirect(url_for("signIn", password=password, email=email))
+    else:
+        return render_template('login.html')
+@app.route('/<password> ,<email>', methods={"POST", "GET"})
+def signIn(password,email):
+    data={
+        'correo': email,
+        'contraseña':password
+    }
+    return render_template('signIn.html', data=data)
 
 def error404(error):
     return render_template('404.html'), 404

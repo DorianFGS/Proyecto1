@@ -8,7 +8,6 @@
     <title>{% block title %} {% endblock%}</title>
 </head>
 <body>
-  {% block header %}
   <header class="p-3 text-bg-dark">
     <div class="container">
       <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
@@ -18,7 +17,7 @@
 
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
           <li><a href="/index" class="nav-link px-2 text-secondary">Página Principal</a></li>
-          <li><a href="#" class="nav-link px-2 text-white">Features</a></li>
+          <li><a href="/login" class="nav-link px-2 text-white">Inicia Sesion</a></li>
           <li><a href="#" class="nav-link px-2 text-white">Pricing</a></li>
           <li><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
           <li><a href="#" class="nav-link px-2 text-white">About</a></li>
@@ -35,9 +34,10 @@
       </div>
     </div>
   </header>
-      {% endblock %}
+  <div class="container">
     {% block body %}
 
     {% endblock %}
+    </div>
 </body>
 </html>
