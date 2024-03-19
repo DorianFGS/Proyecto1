@@ -1,59 +1,50 @@
-from flask import Flask, render_template, request, redirect, url_for #Es para importar flask
+from flask import Flask, render_template, request, redirect, url_for, session, flash
+import config
+from flask_mysqldb import MySQL
 
-app = Flask(__name__) #creamos una instancia de flask en una variable llamada app(se puede llamar como sea)
+app = Flask(__name__)
 
-@app.route('/')#usamos un decorador(@) para crear una respuesta a la ruta / que es el index o página principal
-def Hola(): #creamos la función que va a responder al llamado a  la ruta /
-    return '<h1>Hola mundo</h1>' #es lo que devuelve la función es este caso solo un texto (hola mundo)
-@app.route('/plantilla')
-def plantilla():
-    data={
-        'titulo':'Practica #2 con Bootstrap',
-        'mensaje':'Bienvenido al sitio Web ',
-        'nombre':'Dorian Fernando Galindo Salinas'
-    } #Declaración de diccionario
-    return render_template('layout.html',data=data) #render_template es para renderizar la plantilla
+app.config["MYSQL_USER"]= config.MYSQL_USER
+app.config["MYSQL_DB"]= config.MYSQL_DB
+app.config["MYSQL_PASSWORD"]= config.MYSQL_PASSWORD
+app.config['SECRET_KEY'] = config.HEX_SEC_KEY
 
-@app.route('/datos/<nombre>')
-def datos(nombre):
-    data={
-        'titulo':'Datos del Estudiante',
-        'matricula':'04220026',
-        'nombre':nombre,
-        'correo':'l0400220026@progreso.tecnm.mx'
-    }
-    return render_template('datos.html',data=data)
+mysql = MySQL(app)
 
-@app.route('/index')
-def index():
+@app.route('/') 
+def index(): 
     data={
         'titulo':'Página Principal',
         'mensaje':'Bienvenido, esta es la página principal.'
     }
-    return render_template('index.html',data=data)
+    return render_template('index.html', data=data)
 
-@app.route('/login', methods={"POST", "GET"})
-def sign():
-    if request.method == 'POST':
-        password = request.form["password"]
-        email = request.form["correo"]
-        return redirect(url_for("signIn", password=password, email=email))
+@app.route('/login', methods=['POST','GET'])
+def login():
+    email=request.form.get("email")
+    password= request.form.get("password")
+    cur=mysql.connection.cursor()
+    cur.execute("select * from users where email= %s and password=%s", (email,password))
+    user=cur.fetchone()
+    cur.close()
+    if user is not None:
+        session['email'] = email
+        session['name'] = user[1]
+        session['surnames'] = user[2]
+
+        return redirect(url_for('home'))
     else:
+        flash("Error de Contraseña")
         return render_template('login.html')
-@app.route('/<password> ,<email>', methods={"POST", "GET"})
-def signIn(password,email):
-    data={
-        'correo': email,
-        'contraseña':password
-    }
-    return render_template('signIn.html', data=data)
+
+@app.route('/home')
+def home():
+    return render_template('home.html')
 
 def error404(error):
     return render_template('404.html'), 404
 app.register_error_handler(404, error404)
-app.run(debug=True) #es para correr la aplicación o sea nuestro sitio web en el servidor virtual
+app.run(debug=True) 
 
-    
-    
-    #recuerda que para verlo solo debemos entrar a la dirección 127.0.0.1:5000 en cualquier navegador
-    #es importante crear la carpeta templates porque ahi va flask a intentar buscar el archivo de la plantilla.
+if __name__ =='__main__':
+    app.run(debug=True)

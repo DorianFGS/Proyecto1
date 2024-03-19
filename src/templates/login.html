@@ -3,17 +3,33 @@
 {% block title %}Inicia Sesión{% endblock %}
 
 {% block body %}
-    <form action="" method="Post">
-        <div class="form-floating">
-            <input type="text" class="form-control" name="correo">
-            <label for="correo">Correo Electronico</label>
-        </div>
-        <div class="form-floating">
-         <input type="password" class="form-control" name="password">
-            <label for="password">Contraseña</label>
-        </div>
-        <div>
-            <button type="submit" class="btn btn-outline-dark" value="submit">Iniciar Sesión</button>
-        </div>
-    </form>
+<div class=" container-fluid row m-0 justify-content-center align-items-center">
+    <img style="width: 350px; height: 350px;" src="{{url_for('static', filename='images/huohuo_icon.png')}}">
+</div>
+<div class="container-fluid row m-0 justify-content-center align-items-center">
+    <div class="card shadow w-50">
+        <form action="/login" method="post">
+            <div class="form-floating">
+                <input style="color: #187557;" type="email" class="form-control" name="email">
+                <label style="color: #187557;" for="">Correo</label>
+            </div>
+            <div class="form-floating">
+             <input style="color: #187557;" type="password" class="form-control" name="password">
+                <label style="color: #187557;" for="password">Contraseña</label>
+            </div>
+            {% with message = get_flashed_messages() %}
+            {% if message %}
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                <strong>Error </strong>{{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endif %}
+            {% endwith %}
+            
+            <div>
+                <button style="background-color: #ABECCE; color: #187557;" type="submit" class="btn w-100" value="submit">Iniciar Sesión</button>
+            </div>
+        </form>
+    </div>
+</div>
 {% endblock %}

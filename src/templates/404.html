@@ -3,5 +3,9 @@
 {% block title %}Página no Encontrada{% endblock %}
 
 {% block body %}
-    <h1>Upss... La página a la que intentas acceder no está disponible o no existe</h1>
+    <div class="container-fluid row m-0 justify-content-center align-items-center">
+        <img style="width: 350px; height: 350px;" src="{{url_for('static', filename='images/huohuo_404.png')}}">
+        <h1 style="text-align: center;">Upss... La página a la que intentas acceder no está disponible o no existe</h1>
+    </div>
+   
 {% endblock %}

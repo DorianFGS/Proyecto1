@@ -1,0 +1,16 @@
+{% extends './layout.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block body %}
+
+    <div class="container-fluid row m-0 justify-content-center align-items-center"">
+        <div class="card shadow w-50">
+            <h1 style="text-align: center;">Bienvenido {{session['name']}}</h1>
+        </div>
+        <div class=" container-fluid row m-0 justify-content-center align-items-center">
+            <img style="width: 350px; height: 350px;" src="{{url_for('static', filename='images/huohuo_home.png')}}">
+        </div>
+    </div>
+
+{% endblock %}
